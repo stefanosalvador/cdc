@@ -1,7 +1,8 @@
 <div class="form-group">
   <label for="account_in">Da</label>
   <select class="form-control" id="account_in" name="account_in">
-    <% @accounts[Account::IN].each do |account| -%>
+    <option value=""  <%=  @transaction.account_in.nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
+    <% @accounts[Account::DEPOSIT].each do |account| -%>
     <option value="<%= account.id %>"  <%= account == @transaction.account_in ? "selected='selected'" : "" %>><%= account.label %></option>
     <% end -%>
   </select>
@@ -9,7 +10,11 @@
 <div class="form-group">
   <label for="account_out">A</label>
   <select class="form-control" id="account_out" name="account_out">
-    <% @accounts[Account::OUT].each do |account| -%>
+    <option value=""  <%=  @transaction.account_out.nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
+    <% @accounts[Account::DEPOSIT].each do |account| -%>
+    <option value="<%= account.id %>"  <%= account == @transaction.account_out ? "selected='selected'" : "" %>><%= account.label %></option>
+    <% end -%>
+    <% @accounts[Account::EXPENSES].each do |account| -%>
     <option value="<%= account.id %>"  <%= account == @transaction.account_out ? "selected='selected'" : "" %>><%= account.label %></option>
     <% end -%>
   </select>
@@ -21,6 +26,10 @@
 <div class="form-group">
   <label for="amount">Ammontare</label>
   <input type="text" class="form-control" id="amount" name="amount" value="<%= @transaction.amount %>">
+</div>
+<div class="form-group">
+  <label for="note">Note</label>
+  <textarea class="form-control" id="note" name="note"><%= @transaction.note %></textarea>
 </div>
 <input type='hidden' class="form-control" name="dt" id="hidden_dt" data-current="<%= @transaction.dt %>" />
 <div style="overflow:hidden;">

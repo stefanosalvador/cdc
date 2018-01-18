@@ -8,10 +8,11 @@
             <input type="text" class="form-control" id="label" name="label">
           </div>
           <div class="form-group">
-            <label for="direction">Tipo</label>
-            <select class="form-control" id="direction" name="direction">
-              <option value="<%= Account::OUT %>"><%= t Account::OUT %></option>
-              <option value="<%= Account::IN %>"><%= t Account::IN %></option>
+            <label for="atype">Tipo</label>
+            <select class="form-control" id="atype" name="atype">
+              <% [Account::DEPOSIT, Account::EXPENSES].each do |atype| -%>
+              <option value="<%= atype %>"><%= t atype %></option>
+              <% end -%>
             </select>
           </div>
           <label>Tags</label>

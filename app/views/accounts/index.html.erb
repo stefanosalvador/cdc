@@ -10,6 +10,7 @@
               <th>Etichetta</th>
               <th>Tags</th>
               <th class="type">Tipo</th>
+              <th class="balance">Saldo</th>
               <th class="transactions">Transazioni</th>
             </tr>
           </thead>
@@ -19,7 +20,8 @@
               <td><a href="<%= edit_account_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a></td>
               <td><%= account.label %></td>
               <td><%= account.tags.map{|tag| tag.name}.join(",") %></td>
-              <td class="type_<%= account.direction.downcase %>"><%= t account.direction %></td>
+              <td class="type_<%= account.atype.downcase %>"><%= t account.atype %></td>
+              <td><%= @amounts[account.id] %></td>
               <td>
                 <a href="<%= account_transactions_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span></a>
                 <a href="<%= new_account_transaction_path(account.id) %>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></a>

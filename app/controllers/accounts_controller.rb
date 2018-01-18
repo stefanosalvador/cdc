@@ -1,6 +1,9 @@
 class AccountsController < ApplicationController
   def index
-    @accounts = Account.by_direction_and_label
+    @accounts = Account.by_atype_and_label
+    amounts_in = Hash[Transaction.amounts_by_account_in.reduce.group_level(1).rows.map{|a| a.values}]
+    amounts_out = Hash[Transaction.amounts_by_account_out.reduce.group_level(1).rows.map{|a| a.values}]
+    @amounts = amounts_in.merge(amounts_out){|key, inval, outval| inval + outval}
   end
 
   def edit
@@ -23,7 +26,7 @@ private
 
   def save_account(account)
     account.label = params[:label]
-    account.direction = params[:direction]
+    account.atype = params[:atype]
     account.tags = []
     unless(params[:tags].nil? || params[:tags].empty?)
       params[:tags].each do |tag_id|

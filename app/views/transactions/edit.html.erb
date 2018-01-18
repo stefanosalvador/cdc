@@ -1,0 +1,12 @@
+<div class="main_container page transaction" id="new_transaction">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Modifica transazione</h1>
+      <%= form_tag(transaction_path(@transaction.id), method: :put) do -%>
+        <%= render 'form' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+ 
+ 

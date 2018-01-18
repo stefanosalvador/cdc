@@ -1,9 +1,9 @@
 class Account < CouchRest::Model::Base
-  IN = 'IN'
-  OUT = 'OUT'
+  DEPOSIT = 'DEPOSIT'
+  EXPENSES = 'EXPENSES'
 
-  property :label,     String
-  property :direction, String
+  property :label,  String
+  property :atype,  String
 
   collection_of :tags
 
@@ -12,7 +12,7 @@ class Account < CouchRest::Model::Base
   design do
     view :by_code
     view :by_label
-    view :by_direction
-    view :by_direction_and_label
+    view :by_atype
+    view :by_atype_and_label
   end
 end

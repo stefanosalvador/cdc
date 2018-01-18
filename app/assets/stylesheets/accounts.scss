@@ -11,13 +11,16 @@
     .type {
       width: 200px;
     }
+    .balance {
+      width: 120px;
+    }
     .transactions {
       width: 120px;
     }
-    .type_in {
+    .type_deposit {
       color: green;
     }
-    .type_out {
+    .type_expenses {
       color: red;
     }
   }
