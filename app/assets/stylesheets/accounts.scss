@@ -1,0 +1,24 @@
+#accounts {
+  h1 {
+    a {
+      float: right;
+    }
+  }
+  table {
+    .edit {
+      width: 60px;
+    }
+    .type {
+      width: 200px;
+    }
+    .transactions {
+      width: 120px;
+    }
+    .type_in {
+      color: green;
+    }
+    .type_out {
+      color: red;
+    }
+  }
+}

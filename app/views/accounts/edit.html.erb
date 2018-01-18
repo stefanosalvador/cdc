@@ -1,0 +1,32 @@
+<div class="main_container page" id="new_account">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Modifica conto</h1>
+        <%= form_tag(account_path(@account.id), method: :put) -%>
+          <div class="form-group">
+            <label for="label">Etichetta</label>
+            <input type="text" class="form-control" id="label" name="label" value="<%= @account.label%>">
+          </div>
+          <div class="form-group">
+            <label for="direction">Tipo</label>
+            <select class="form-control" id="direction" name="direction">
+              <% [Account::OUT, Account::IN].each do |direction| -%>
+              <option value="<%= direction %>"  <%= @account.direction == direction ? "selected='selected'" : "" %>><%= t direction %></option>
+              <% end -%>
+            </select>
+          </div>
+          <label>Tags</label>
+          <% Tag.by_name.each do |tag|%>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="tags[]" value="<%= tag.id%>" <%= @account.tags.map{|t| t.name}.join(",").include?(tag.name) ? "checked='checked'" : "" %>> <%= tag.name %>
+          </label>
+          <% end %>
+          <div class="form-group">
+            <label for="new_tags">Nuovi tag</label>
+            <input type="text" class="form-control" id="new_tags" name="new_tags">
+          </div>
+          <button type="submit" class="btn btn-default">Salva</button>
+        </form>
+    </div>
+  </div>
+</div>

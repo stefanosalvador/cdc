@@ -1,0 +1,32 @@
+<div class="main_container page" id="transactions">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Transazioni per <i><%= @account.label %></i> <a href="<%= new_account_transaction_path(@account.id) %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuova transazione</a></h1>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="dt">Data</th>
+              <th class="description">Descrizione</th>
+              <th class="amount">Ammontare</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactions.each do |transaction| %>
+            <tr>
+              <td><%= Time.at(transaction.dt).strftime("%d/%m/%Y %H:%M") %></td>
+              <td><%= transaction.description %></td>
+              <td><%= transaction.amount %></td>
+              <td>
+                <a href="<%= edit_transaction_path(transaction.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="<%= transaction_path(transaction.id) %>" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

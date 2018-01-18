@@ -1,0 +1,34 @@
+<div class="main_container page" id="accounts">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Conti <a href="<%= new_account_path %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo conto</a></h1>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="edit"></th>
+              <th>Etichetta</th>
+              <th>Tags</th>
+              <th class="type">Tipo</th>
+              <th class="transactions">Transazioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @accounts.each do |account| %>
+            <tr>
+              <td><a href="<%= edit_account_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><%= account.label %></td>
+              <td><%= account.tags.map{|tag| tag.name}.join(",") %></td>
+              <td class="type_<%= account.direction.downcase %>"><%= t account.direction %></td>
+              <td>
+                <a href="<%= account_transactions_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span></a>
+                <a href="<%= new_account_transaction_path(account.id) %>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

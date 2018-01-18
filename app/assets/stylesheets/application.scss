@@ -1,0 +1,83 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import 'bootstrap-datetimepicker';
+
+body {
+  font-size: 18px;
+}
+
+.navbar {
+  background-color: #fff;
+  border-bottom: solid 2px #dee2de;
+  
+  .icon-bar {
+    color: dee2de;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    color: #0067b1;
+  }
+}
+
+.main_container {
+  margin-top: 52px;
+}
+
+.page {
+  p {
+    text-align: justify;
+  }
+  
+  strong {
+    color: #0067b1;
+  }
+
+  .section {
+    padding: 25px 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .section_odd {
+    background-color: #f1f6f1;
+    .description_panel {
+      border: solid 1px #fff;
+      background-color: #fff;
+    }
+  }
+
+  .section_even {
+    background-color: #fff;
+    .description_panel {
+      border: solid 1px #0067b1;
+      background-color: #f1f6f1;
+    }
+  }
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 10px 0;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #0067b1;
+  font-weight: bold;
+}
+
