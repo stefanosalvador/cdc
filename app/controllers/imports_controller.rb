@@ -1,24 +1,31 @@
 class ImportsController < ApplicationController
   def index
-    # elenco degli import presenti con possibilità di modifica e creazione nuovo
+    @imports = Import.all
   end
 
   def new
-    # form per creare nuovo import
+    @import = Import.new
+    @parsers = Dir[Rails.root.join('lib', 'parser', '*.rb')].map {|parser_file| File.basename(parser_file, ".rb").classify}
   end
   
   def create
-    # salva il nuovo import, si possono aggiungere regole solo dopo la creazione
+    import = Import.new
+    import.label = params['label']
+    import.parser = params['parser']
+    import.save
+    redirect_to imports_path
   end
   
   def edit
-    # modifica l'import:
-    # - scegli nome
-    # - scegli parser
-    # - aggiungi/togli/modifica regole
+    @import = Import.find(params['id'])
+    @parsers = Dir[Rails.root.join('lib', 'parser', '*.rb')].map {|parser_file| File.basename(parser_file, ".rb").classify}
   end
   
   def update
-    # aggiorna l'import
+    import = Import.find(params['id'])
+    import.label = params['label']
+    import.parser = params['parser']
+    import.save
+    redirect_to imports_path
   end
 end

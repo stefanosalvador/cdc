@@ -1,0 +1,33 @@
+<div class="main_container page" id="imports">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Import da file <a href="<%= new_import_path %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo tipo di import</a></h1>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="edit"></th>
+              <th>Etichetta</th>
+              <th>Classe per l'import</th>
+              <th class="rules">Regole</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @imports.each do |import| %>
+            <tr>
+              <td><a href="<%= edit_import_path(import.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><%= import.label %></td>
+              <td><%= import.parser %></td>
+              <td>
+                <a href="<%= import_rules_path(import.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span></a>
+                <a href="<%= new_import_rule_path(import.id) %>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+ 

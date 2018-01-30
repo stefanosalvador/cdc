@@ -1,0 +1,33 @@
+<div class="main_container page" id="rules">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Regole per l'import <i><%= @import.label%></i> <a href="<%= new_import_rule_path(@import.id) %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuova regola</a></h1>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="edit"></th>
+              <th>Tipo</th>
+              <th>Token</th>
+              <th>Descrizione</th>
+              <th>Da</th>
+              <th>A</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @import.rules.each_with_index do |rule, idx| %>
+            <tr>
+              <td><a href="<%= edit_import_rule_path(@import.id, idx) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><%= rule.r_type %></td>
+              <td><%= rule.token %></td>
+              <td><%= rule.description %></td>
+              <td><%= @accounts[rule.account_in] %></td>
+              <td><%= @accounts[rule.account_out] %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

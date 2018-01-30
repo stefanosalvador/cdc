@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label for="label">Etichetta</label>
+  <input type="text" class="form-control" id="label" name="label" value="<%= @import.label %>">
+</div>
+<div class="form-group">
+  <label for="parser">Classe del parser</label>
+  <select class="form-control" id="parser" name="parser">
+    <option value=""  <%=  @import.parser.nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
+    <% @parsers.each do |parser| -%>
+    <option value="<%= parser %>"  <%= parser ==  @import.parser ? "selected='selected'" : "" %>><%= parser %></option>
+    <% end -%>
+  </select>
+</div>
+<button type="submit" class="btn btn-default">Salva</button>
+ 
+ 

@@ -1,0 +1,13 @@
+<div class="main_container page rule" id="edit_rule">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Modifica regola per il tipo di import <%= @import.label %></h1>
+      <%= form_tag(import_rule_path(@import.id, params['id']), method: :put) do -%>
+        <%= render 'form' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+ 
+ 
+ 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'dashboard#index'
 
   resources :accounts do
@@ -7,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :transactions
   
-  resources :imports
+  resources :imports do
+    resources :rules
+  end
 
   resources :parsers
 

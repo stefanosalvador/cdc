@@ -1,0 +1,13 @@
+<div class="main_container page import" id="edit_import">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Modifica tipo di import</h1>
+      <%= form_tag(import_path(@import.id), method: :put) do -%>
+        <%= render 'form' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+ 
+ 
+ 

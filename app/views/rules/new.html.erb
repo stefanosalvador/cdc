@@ -1,0 +1,12 @@
+<div class="main_container page transaction" id="new_rule">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Nuova regola per il tipo di import <%= @import.label %></h1>
+      <%= form_tag(import_rules_path(@import.id), method: :post) do -%>
+        <%= render 'form' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+ 
+ 
