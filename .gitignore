@@ -24,4 +24,6 @@
 
 /Gemfile.lock
 
+/config/couchdb.yml
+
 /appunti
