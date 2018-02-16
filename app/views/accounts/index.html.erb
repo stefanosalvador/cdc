@@ -1,7 +1,11 @@
 <div class="main_container page" id="accounts">
   <div class="section section_even">
     <div class="container">
-      <h1 class="title">Conti <a href="<%= new_account_path %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo conto</a></h1>
+      <h1 class="title">
+        Conti
+        <a href="<%= new_account_path %>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo conto</a>
+        <a href="<%= new_parser_path %>" class="btn btn-primary"><span class="glyphicon glyphicon-paste"></span> Importa transazioni</a>
+      </h1>
       <div>
         <table class="table table-striped">
           <thead>
