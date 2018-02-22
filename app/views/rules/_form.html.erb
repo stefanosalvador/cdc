@@ -2,7 +2,7 @@
   <label for="r_type">Tipo di regola</label>
   <select class="form-control" id="r_type" name="r_type">
     <option value=""  <%= @rule[:r_type].nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
-    <% [Import::REGEXP_RULE, Import::STRING_RULE ].each do |r_type| -%>
+    <% [Import::REGEXP_RULE, Import::STRING_RULE, Import::LUCKY_RULE ].each do |r_type| -%>
     <option value="<%= r_type %>"  <%= @rule[:r_type] ==  r_type ? "selected='selected'" : "" %>><%= r_type %></option>
     <% end -%>
   </select>

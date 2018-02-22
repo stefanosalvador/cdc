@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
     amounts_in = Hash[Transaction.amounts_by_account_in.reduce.group_level(1).rows.map{|a| a.values}]
     amounts_out = Hash[Transaction.amounts_by_account_out.reduce.group_level(1).rows.map{|a| a.values}]
     @amounts = amounts_in.merge(amounts_out){|key, inval, outval| inval + outval}
+    @tags = Hash[Tag.all.map{|tag| [tag.id, tag.name]}]
   end
 
   def edit

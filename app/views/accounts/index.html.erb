@@ -23,7 +23,7 @@
             <tr>
               <td><a href="<%= edit_account_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a></td>
               <td><%= account.label %></td>
-              <td><%= account.tags.map{|tag| tag.name}.join(",") %></td>
+              <td><%= account.tag_ids.map{|tag_id| @tags[tag_id]}.join(",") %></td>
               <td class="type_<%= account.atype.downcase %>"><%= t account.atype %></td>
               <td><%= @amounts[account.id] %></td>
               <td>

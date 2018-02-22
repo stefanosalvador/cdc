@@ -1,6 +1,7 @@
 class Import < CouchRest::Model::Base
   REGEXP_RULE = 'REGEXP_RULE'
   STRING_RULE = 'STRING_RULE'
+  LUCKY_RULE = 'LUCKY_RULE'
   
   property :label,  String
   property :parser,  String

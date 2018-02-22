@@ -1,0 +1,25 @@
+<div class="main_container page import" id="new_parser">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">Importa transazioni da file</h1>
+      <%= form_tag(parsers_path, method: :post) do -%>
+        <div class="form-group">
+          <label for="r_type">Regola di import</label>
+          <select class="form-control" id="import" name="import">
+            <option value="">-- Scegli --</option>
+            <% @imports.each do |import| %>
+            <option value="<%= import.id %>"><%= import.label %></option>
+            <% end -%>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputFile">File da imporare</label>
+          <input type="file" id="file">
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+ 
+ 
+ 
