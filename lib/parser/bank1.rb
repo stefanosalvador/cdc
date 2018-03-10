@@ -17,7 +17,7 @@ module Parser
           hour = 0
           minutes = 0
         end
-        dt = Time.local(date_raw[2], date_raw[1], date_raw[0], hour, minutes).to_i
+        dt = Time.local(year, month, day, hour, minutes).to_i
         transactions << {
           imported_description: description,
           amount: amount,
