@@ -27,3 +27,5 @@
 /config/couchdb.yml
 
 /appunti
+
+/public/assets
