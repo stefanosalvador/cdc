@@ -27,13 +27,13 @@ module Parser
           v,d = split.at_xpath("./value").text.split("/").map{|s| s.to_f}
           value = v/d
           if(value > 0)
-            account_in_id = split.at_xpath("./account").text
-          else
             account_out_id = split.at_xpath("./account").text
+            object[:account_out] = accounts[account_out_id][:name]
+            object[:amount] = value
+          else
+            account_in_id = split.at_xpath("./account").text
+            object[:account_in] = accounts[account_in_id][:name]
           end
-          object[:account_in] = accounts[account_in_id][:name]
-          object[:account_out] = accounts[account_out_id][:name]
-          object[:amount] = value
         end
         transactions << object
       end

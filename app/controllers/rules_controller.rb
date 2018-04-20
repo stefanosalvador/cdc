@@ -16,8 +16,8 @@ class RulesController < ApplicationController
       r_type: params["r_type"],
       token: params["token"],
       description: params["description"],
-      account_in: params["account_in"],
-      account_out: params["account_out"]
+      account_from: params["account_from"],
+      account_to: params["account_to"]
     }
     @import.save
     redirect_to import_rules_path(@import.id)
@@ -35,8 +35,8 @@ class RulesController < ApplicationController
     rule.r_type = params["r_type"]
     rule.token = params["token"]
     rule.description = params["description"]
-    rule.account_in = params["account_in"]
-    rule.account_out = params["account_out"]
+    rule.account_from = params["account_from"]
+    rule.account_to = params["account_to"]
     @import.save
     redirect_to import_rules_path(@import.id)
   end

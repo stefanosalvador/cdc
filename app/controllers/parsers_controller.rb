@@ -5,7 +5,7 @@ class ParsersController < ApplicationController
   end
   
   def create
-    debugger
+    prepare_accounts
     # - caricare dal db l'import corrispondente
     import = Import.find(params["import"])
     # preparare la classe per il parsing
@@ -20,7 +20,8 @@ class ParsersController < ApplicationController
         match_rule(rule, transaction)
         if(transaction[:matched])
           # cercare le eventuali transazioni già presenti: tocca usare un po' di euristica
-          
+          day = transaction[:dt] - transaction[:dt]%86400
+          transaction[:found] = Transaction.by_account_to_id_and_dt.startkey( [transaction[:account_to], day]).endkey( [transaction[:account_to], day + 86400]).first
           # passiamo alla prossima
           break
         end
@@ -34,33 +35,35 @@ private
 
   def match_rule(rule, transaction)
     if(rule.r_type == Import::LUCKY_RULE)
-      # cerca account in e out e aggiungi gli id alla transaction
-      account_in = Account.by_label.key(transaction[:account_in]).first
-      account_out = Account.by_label.key(transaction[:account_out]).first
+      # cerca account from e to e aggiungi gli id alla transaction
+      account_from = Account.by_label.key(transaction[:account_from]).first
+      account_to = Account.by_label.key(transaction[:account_to]).first
       if(account_in && account_out)
         transaction[:matched] = true
-        transaction[:account_in] = account_in.id
-        transaction[:account_out] = account_out.id
+        transaction[:description] = transaction[:imported_description]
+        transaction[:imported_description] = ""
+        transaction[:account_from] = account_from.id
+        transaction[:account_to] = account_to.id
       end
     elsif(rule.r_type == Import::STRING_RULE)
       # controlla se la stringa è contenuta in imported_description
       return if transaction[:imported_description].nil?
       if(transaction[:imported_description].include?(rule.token))
-        # aggiunti description, account in e out alla transaction
+        # aggiunti description, account from e to alla transaction
         transaction[:matched] = true
         transaction[:description] = rule.description
-        transaction[:account_in] = rule.account_in
-        transaction[:account_out] = rule.account_out
+        transaction[:account_from] = rule.account_from
+        transaction[:account_to] = rule.account_to
       end
     elsif(rule.r_type == Import::REGEXP_RULE)
       # controlla se la regexp maccia imported_description
       return if transaction[:imported_description].nil?
       if(transaction[:imported_description] =~ Regexp.new(rule.token))
-        # aggiunti description, account in e out alla transaction
+        # aggiunti description, account from e to alla transaction
         transaction[:matched] = true
         transaction[:description] = rule.description
-        transaction[:account_in] = rule.account_in
-        transaction[:account_out] = rule.account_out
+        transaction[:account_form] = rule.account_from
+        transaction[:account_to] = rule.account_to
       end
     end
   end

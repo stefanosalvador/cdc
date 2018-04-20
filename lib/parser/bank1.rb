@@ -20,7 +20,7 @@ module Parser
         dt = Time.local(year, month, day, hour, minutes).to_i
         transactions << {
           imported_description: description,
-          amount: amount,
+          amount: amount.abs,
           dt: dt
         }
       end

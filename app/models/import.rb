@@ -9,8 +9,8 @@ class Import < CouchRest::Model::Base
     property :r_type, String
     property :token, String
     property :description, String
-    property :account_in, String
-    property :account_out, String
+    property :account_from, String
+    property :account_to, String
   end
   
   design do

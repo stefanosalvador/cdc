@@ -1,9 +1,9 @@
 class AccountsController < ApplicationController
   def index
     @accounts = Account.by_atype_and_label
-    amounts_in = Hash[Transaction.amounts_by_account_in.reduce.group_level(1).rows.map{|a| a.values}]
-    amounts_out = Hash[Transaction.amounts_by_account_out.reduce.group_level(1).rows.map{|a| a.values}]
-    @amounts = amounts_in.merge(amounts_out){|key, inval, outval| inval + outval}
+    amounts_from = Hash[Transaction.amounts_by_account_from.reduce.group_level(1).rows.map{|a| a.values}]
+    amounts_to = Hash[Transaction.amounts_by_account_to.reduce.group_level(1).rows.map{|a| a.values}]
+    @amounts = amounts_from.merge(amounts_to){|key, fromval, toval| fromval + toval}
     @tags = Hash[Tag.all.map{|tag| [tag.id, tag.name]}]
   end
 

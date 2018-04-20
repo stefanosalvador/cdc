@@ -4,25 +4,26 @@ class Transaction < CouchRest::Model::Base
   property :dt,          Integer, :default => Time.now.to_i
   property :note,        String
 
-  belongs_to :account_in, class_name: 'Account'
-  belongs_to :account_out, class_name: 'Account'
+  belongs_to :account_from, class_name: 'Account'
+  belongs_to :account_to, class_name: 'Account'
 
   design do
-    view :by_account_in_id
-    view :by_account_out_id
-    view :amounts_by_account_in,
+    view :by_account_from_id
+    view :by_account_to_id
+    view :by_account_to_id_and_dt
+    view :amounts_by_account_from,
       :map =>
         "function(doc) {
-          if ((doc['type'] == 'Transaction') && (doc['account_in_id'] != null )) {
-            emit(doc['account_in_id'], -doc['amount']);
+          if ((doc['type'] == 'Transaction') && (doc['account_from_id'] != null )) {
+            emit(doc['account_from_id'], -doc['amount']);
           }
         }",
       :reduce => "_sum"
-    view :amounts_by_account_out,
+    view :amounts_by_account_to,
       :map =>
         "function(doc) {
-          if ((doc['type'] == 'Transaction') && (doc['account_out_id'] != null )) {
-            emit(doc['account_out_id'], doc['amount']);
+          if ((doc['type'] == 'Transaction') && (doc['account_to_id'] != null )) {
+            emit(doc['account_to_id'], doc['amount']);
           }
         }",
       :reduce => "_sum"

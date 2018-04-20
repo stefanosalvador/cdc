@@ -1,21 +1,25 @@
 class TransactionsController < ApplicationController
   def index
     @account = Account.find(params['account_id'])
-    @transactions = Transaction.by_account_out_id(key: @account.id)
+    @transactions = Transaction.by_account_to_id(key: @account.id)
   end
   
   def new
     prepare_accounts
     @account = Account.find(params['account_id'])
     @transaction = Transaction.new
-    @transaction.account_out = @account
+    @transaction.account_to = @account
     @transaction.dt = Time.now.to_i
   end
   
   def create
     @transaction = Transaction.new
     update_transaction
-    redirect_to accounts_path
+    respond_to do |format|
+      format.html {redirect_to accounts_path}
+      format.json { render json: {success: true, transaction_id: @transaction.id} }
+    end
+    
   end
   
   def edit
@@ -32,8 +36,8 @@ class TransactionsController < ApplicationController
   private
 
   def update_transaction
-    @transaction.account_in = Account.find(params['account_in'])
-    @transaction.account_out = Account.find(params['account_out'])
+    @transaction.account_from = Account.find(params['account_from'])
+    @transaction.account_to = Account.find(params['account_to'])
     @transaction.description = params['description']
     @transaction.note = params['note']
     @transaction.amount = params['amount'].to_f
@@ -41,10 +45,4 @@ class TransactionsController < ApplicationController
     @transaction.save
   end
   
-  def prepare_accounts
-    @accounts = {Account::DEPOSIT => [], Account::EXPENSES => []}
-    Account.by_atype_and_label.all.each do |account|
-      @accounts[account.atype] << account
-    end
-  end
 end

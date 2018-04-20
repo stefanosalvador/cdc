@@ -1,0 +1,89 @@
+<div class="main_container page import" id="parser_transactions">
+  <div class="section section_even">
+    <div class="container">
+      <h1 class="title">
+        <%= @transactions.size %> transazioni trovate nel file <%= params['file'].original_filename %>
+        <small><%= @transactions.select{|t| t[:matched]}.size %> riconosciute</small>
+      </h1>
+      <% @transactions.each_with_index do |transaction, idx| %>
+      <div class="verify_transaction">
+        <%= form_tag(transactions_path, method: :post, :class => "form-horizontal form_transaction") do -%>
+        <div class="form-group">
+          <div class="col-sm-1">
+            <% label_class = "label-warning" %>
+            <% label_class = "label-success" if transaction[:matched] %>
+            <% label_class = "label-danger" if transaction[:found]%>
+            <span class="label <%= label_class %>"><%= idx+1 %></span>
+          </div>
+          <label for="account_from" class="col-sm-1 control-label">Da</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="account_from" name="account_from">
+              <option value=""  <%=  transaction[:account_from].nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
+              <% @accounts[Account::DEPOSIT].each do |account| -%>
+              <option value="<%= account.id %>"  <%= account.id == transaction[:account_from] ? "selected='selected'" : "" %>><%= account.label %></option>
+              <% end -%>
+              <% @accounts[Account::EXPENSES].each do |account| -%>
+              <option value="<%= account.id %>"  <%= account.id == transaction[:account_from] ? "selected='selected'" : "" %>><%= account.label %></option>
+              <% end -%>
+            </select>
+          </div>
+          <label for="account_to" class="col-sm-2 control-label">A</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="account_to" name="account_to">
+              <option value=""  <%= transaction[:account_to].nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
+              <% @accounts[Account::DEPOSIT].each do |account| -%>
+              <option value="<%= account.id %>"  <%= account.id == transaction[:account_to] ? "selected='selected'" : "" %>><%= account.label %></option>
+              <% end -%>
+              <% @accounts[Account::EXPENSES].each do |account| -%>
+              <option value="<%= account.id %>"  <%= account.id == transaction[:account_to] ? "selected='selected'" : "" %>><%= account.label %></option>
+              <% end -%>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-sm-2 control-label">Descrizione</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description" value="<%= transaction[:description] %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="note" class="col-sm-2 control-label">Note</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" id="note" name="note"><%= transaction[:imported_description] %></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amount" class="col-sm-2 control-label">Ammontare</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="amount" name="amount" value="<%= transaction[:amount] %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dt" class="col-sm-2 control-label">Data/Ora</label>
+          <div class="col-sm-10">
+            <div class='input-group date transaction_dt'>
+              <input type='text' class="form-control" name="dt" value="<%= Time.at(transaction[:dt]).strftime("%d/%m/%Y %H:%M") %>" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <% unless(transaction[:found].nil?) %>
+        <div>
+         <p class="bg-danger">Possibile dublicato di <strong><%= transaction[:found].description %> (<%= transaction[:found].amount %>)</strong> <%= transaction[:found].account_from.label rescue "" %> -> <%= transaction[:found].account_to.label rescue "" %> del <%= Time.at(transaction[:found].dt).strftime("%d/%m/%Y %H:%M") %></p>
+        </div>
+        <% end %>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <a class="btn btn-warning transaction_discard"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Elimina</a>
+            <button type="submit" class="btn btn-success transaction_submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salva</button>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
