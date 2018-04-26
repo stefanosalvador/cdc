@@ -22,7 +22,7 @@
               <% @accounts[Account::DEPOSIT].each do |account| -%>
               <option value="<%= account.id %>"  <%= account.id == transaction[:account_from] ? "selected='selected'" : "" %>><%= account.label %></option>
               <% end -%>
-              <% @accounts[Account::EXPENSES].each do |account| -%>
+              <% @accounts[Account::INCOMES].each do |account| -%>
               <option value="<%= account.id %>"  <%= account.id == transaction[:account_from] ? "selected='selected'" : "" %>><%= account.label %></option>
               <% end -%>
             </select>

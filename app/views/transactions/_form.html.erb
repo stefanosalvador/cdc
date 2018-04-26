@@ -1,15 +1,18 @@
 <div class="form-group">
   <label for="account_in">Da</label>
-  <select class="form-control" id="account_in" name="account_in">
+  <select class="form-control" id="account_from" name="account_from">
     <option value=""  <%=  @transaction.account_from.nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
     <% @accounts[Account::DEPOSIT].each do |account| -%>
+    <option value="<%= account.id %>"  <%= account == @transaction.account_from ? "selected='selected'" : "" %>><%= account.label %></option>
+    <% end -%>
+    <% @accounts[Account::INCOMES].each do |account| -%>
     <option value="<%= account.id %>"  <%= account == @transaction.account_from ? "selected='selected'" : "" %>><%= account.label %></option>
     <% end -%>
   </select>
 </div>
 <div class="form-group">
   <label for="account_from">A</label>
-  <select class="form-control" id="account_from" name="account_from">
+  <select class="form-control" id="account_to" name="account_to">
     <option value=""  <%=  @transaction.account_to.nil? ? "selected='selected'" : "" %>>-- Scegli --</option>
     <% @accounts[Account::DEPOSIT].each do |account| -%>
     <option value="<%= account.id %>"  <%= account == @transaction.account_to ? "selected='selected'" : "" %>><%= account.label %></option>

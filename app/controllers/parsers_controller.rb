@@ -38,12 +38,12 @@ private
       # cerca account from e to e aggiungi gli id alla transaction
       account_from = Account.by_label.key(transaction[:account_from]).first
       account_to = Account.by_label.key(transaction[:account_to]).first
-      if(account_in && account_out)
+      transaction[:account_from] = account_from.id if(account_from)
+      transaction[:account_to] = account_to.id if(account_to)
+      if(account_from && account_to)
         transaction[:matched] = true
         transaction[:description] = transaction[:imported_description]
         transaction[:imported_description] = ""
-        transaction[:account_from] = account_from.id
-        transaction[:account_to] = account_to.id
       end
     elsif(rule.r_type == Import::STRING_RULE)
       # controlla se la stringa è contenuta in imported_description
@@ -62,7 +62,7 @@ private
         # aggiunti description, account from e to alla transaction
         transaction[:matched] = true
         transaction[:description] = rule.description
-        transaction[:account_form] = rule.account_from
+        transaction[:account_from] = rule.account_from
         transaction[:account_to] = rule.account_to
       end
     end

@@ -29,3 +29,8 @@
 /appunti
 
 /public/assets
+
+/.ruby-version
+/puma.service
+/sbin
+

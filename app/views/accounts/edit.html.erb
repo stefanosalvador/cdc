@@ -10,7 +10,7 @@
           <div class="form-group">
             <label for="atype">Tipo</label>
             <select class="form-control" id="atype" name="atype">
-              <% [Account::DEPOSIT, Account::EXPENSES].each do |atype| -%>
+              <% [Account::DEPOSIT, Account::EXPENSES, Account::INCOMES].each do |atype| -%>
               <option value="<%= atype %>"  <%= @account.atype == atype ? "selected='selected'" : "" %>><%= t atype %></option>
               <% end -%>
             </select>

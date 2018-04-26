@@ -1,6 +1,7 @@
 class Account < CouchRest::Model::Base
   DEPOSIT = 'DEPOSIT'
   EXPENSES = 'EXPENSES'
+  INCOMES = 'INCOMES'
 
   property :label,  String
   property :atype,  String
