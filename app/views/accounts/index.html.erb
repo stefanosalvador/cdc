@@ -25,7 +25,7 @@
               <td><%= account.label %></td>
               <td><%= account.tag_ids.map{|tag_id| @tags[tag_id]}.join(",") %></td>
               <td class="type_<%= account.atype.downcase %>"><%= t account.atype %></td>
-              <td><%= @amounts[account.id] %></td>
+              <td class="balance"><%= number_to_currency(@amounts[account.id], unit: "€", separator: ",", delimiter: ".", format: "%n %u") %></td>
               <td>
                 <a href="<%= account_transactions_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span></a>
                 <a href="<%= new_account_transaction_path(account.id) %>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></a>

@@ -1,6 +1,6 @@
 module Parser
   class Bank1
-    def self.parse(file)
+    def self.parse(file, dt_import)
       transactions = []
       file = File.open(file) if(file.is_a?(String))
       file.each do |line|
@@ -18,6 +18,7 @@ module Parser
           minutes = 0
         end
         dt = Time.local(year, month, day, hour, minutes).to_i
+        next if(dt < dt_import)
         transactions << {
           imported_description: description,
           amount: amount.abs,

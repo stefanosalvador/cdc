@@ -1,6 +1,6 @@
 module Parser
   class GnuCash
-    def self.parse(file)
+    def self.parse(file, dt_import)
       transactions = []
       
       file = File.open(file)  if(file.is_a?(String))
@@ -28,14 +28,14 @@ module Parser
           value = v/d
           if(value > 0)
             account_out_id = split.at_xpath("./account").text
-            object[:account_out] = accounts[account_out_id][:name]
+            object[:account_to] = accounts[account_out_id][:name]
             object[:amount] = value
           else
             account_in_id = split.at_xpath("./account").text
-            object[:account_in] = accounts[account_in_id][:name]
+            object[:account_from] = accounts[account_in_id][:name]
           end
         end
-        transactions << object
+        transactions << object if(object[:dt] >= dt_import)
       end
 
       return transactions

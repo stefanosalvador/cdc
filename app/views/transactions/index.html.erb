@@ -9,6 +9,10 @@
               <th class="dt">Data</th>
               <th class="description">Descrizione</th>
               <th class="amount">Ammontare</th>
+              <% if(@account.atype == Account::DEPOSIT) %>
+              <% total = 0 %>
+              <th class="amount">Progressivo</th>
+              <% end %>
               <th class="actions"></th>
             </tr>
           </thead>
@@ -18,9 +22,15 @@
               <td><%= Time.at(transaction.dt).strftime("%d/%m/%Y %H:%M") %></td>
               <td><%= transaction.description %></td>
               <td><%= transaction.amount %></td>
+              <% if(@account.atype == Account::DEPOSIT) %>
+              <% total += (@account.id == transaction.account_to_id ? transaction.amount : -transaction.amount) %>
+              <td><%= total %></th>
+              <% end %>
               <td>
-                <a href="<%= edit_transaction_path(transaction.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="<%= transaction_path(transaction.id) %>" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+	        <a href="<%= edit_transaction_path(transaction.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+		<%= link_to( transaction_path(transaction.id), method: :delete, data: {confirm: "Sicuro ?"}, class: 'btn btn-danger' ) do %>
+	        <span class='glyphicon glyphicon-trash'></span>
+         	<% end %>
               </td>
             </tr>
             <% end %>

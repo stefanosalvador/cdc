@@ -2,13 +2,59 @@
   <div class="section section_odd">
     <div class="container">
       <h1>Ultime transazioni</h1>
-      <p>TODO</p>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="dt">Data</th>
+              <th class="description">Descrizione</th>
+              <th class="amount">Ammontare</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @last_transactions.each do |transaction| %>
+            <tr>
+              <td><%= Time.at(transaction.dt).strftime("%d/%m/%Y %H:%M") %></td>
+              <td><%= transaction.description %></td>
+              <td><%= transaction.amount %></td>
+              <td>
+                <a href="<%= edit_transaction_path(transaction.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="<%= transaction_path(transaction.id) %>" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="section section_even">
     <div class="container">
       <h2>Conti più usati</h2>
-      <p>TODO</p>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Etichetta</th>
+              <th class="type">Tipo</th>
+              <th class="transactions">Transazioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @frequently_used_accounts.each do |account| %>
+            <tr>
+              <td><%= account.label %></td>
+              <td class="type_<%= account.atype.downcase %>"><%= t account.atype %></td>
+              <td>
+                <a href="<%= account_transactions_path(account.id) %>" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span></a>
+                <a href="<%= new_account_transaction_path(account.id) %>" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

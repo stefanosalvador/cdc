@@ -8,9 +8,12 @@ class Transaction < CouchRest::Model::Base
   belongs_to :account_to, class_name: 'Account'
 
   design do
+    view :by_dt
     view :by_account_from_id
     view :by_account_to_id
     view :by_account_to_id_and_dt
+    view :by_account_from_id_and_dt
+    view :by_amount
     view :amounts_by_account_from,
       :map =>
         "function(doc) {
