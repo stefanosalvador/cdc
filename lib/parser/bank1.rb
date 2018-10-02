@@ -4,7 +4,7 @@ module Parser
       transactions = []
       file = File.open(file) if(file.is_a?(String))
       file.each do |line|
-        amount_pos = line =~ /(-{0,1}[0-9\.]+,[0-9]{2}),EUR/
+        amount_pos = line =~ /(-{0,1}[0-9\.]+,[0-9]{2});EUR/
         next if amount_pos.nil?
         amount_raw = $1
         day, month, year = line[11..20].split('/')

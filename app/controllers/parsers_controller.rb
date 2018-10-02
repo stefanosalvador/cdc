@@ -6,7 +6,7 @@ class ParsersController < ApplicationController
   
   def create
     prepare_accounts
-    # - caricare dal db l'import corrispondente
+    # caricare dal db l'import corrispondente
     import = Import.find(params["import"])
     # preparare la classe per il parsing
     parser_file = "parser/#{import.parser.underscore}"
@@ -21,18 +21,18 @@ class ParsersController < ApplicationController
       import.rules.each do |rule|
         match_rule(rule, transaction)
         if(transaction[:matched])
-          if(check_duplicates)
-            # cercare le eventuali transazioni già presenti: tocca usare un po' di euristica
-            day = transaction[:dt] - transaction[:dt]%86400
-            transaction[:found] = Transaction.by_account_to_id_and_dt.startkey( [transaction[:account_to], day]).endkey( [transaction[:account_to], day + 86400]).first
-          end
           # passiamo alla prossima          
           break
         end
       end
+      if(check_duplicates && transaction[:dt])
+        # cercare le eventuali transazioni già presenti: per sicurezza prendiamo tutte quelle nello stesso giorno
+        day = transaction[:dt] - transaction[:dt]%86400
+        transaction[:found] = Transaction.by_dt.startkey(day).endkey(day + 86400)
+      end
     end
-    # - preparare la pagina con la conferma delle transazioni
-    # - l'immissione vera e propria delle transazioni avviene tramite il transactions_controller
+    # preparare la pagina con la conferma delle transazioni
+    # l'immissione vera e propria delle transazioni avviene tramite il transactions_controller
   end
   
 private

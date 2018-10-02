@@ -69,14 +69,17 @@
             </div>
           </div>
         </div>
-        <% unless(transaction[:found].nil?) %>
+        <% unless(transaction[:found].nil? || transaction[:found].empty?) %>
+        <p class="bg-danger">Possibile dublicati</p>
+        <% transaction[:found].each do |dup_t| %>
         <div>
-         <p class="bg-danger">Possibile dublicato di <strong><%= transaction[:found].description %> (<%= transaction[:found].amount %>)</strong> <%= transaction[:found].account_from.label rescue "" %> -> <%= transaction[:found].account_to.label rescue "" %> del <%= Time.at(transaction[:found].dt).strftime("%d/%m/%Y %H:%M") %></p>
+         <p><strong><%= dup_t.description %> (<%= dup_t.amount %>)</strong> <%= dup_t.account_from.label rescue "" %> -> <%= dup_t.account_to.label rescue "" %> del <%= Time.at(dup_t.dt).strftime("%d/%m/%Y %H:%M") %></p>
         </div>
+        <% end %>
         <% end %>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <a class="btn btn-warning transaction_discard"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Elimina</a>
+            <a href="javascript:void(0);" class="btn btn-warning transaction_discard"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Elimina</a>
             <button type="submit" class="btn btn-success transaction_submit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Salva</button>
           </div>
         </div>
